@@ -1,0 +1,11 @@
+USE BSTU;
+GO
+-- Быстрая версия Слайда 34 (с ограничением попыток)
+DECLARE @counter INT = 0;
+WHILE (SELECT SUM(AUDITORIUM_CAPACITY) FROM AUDITORIUM) < 2000 AND @counter < 10
+BEGIN
+    UPDATE AUDITORIUM SET AUDITORIUM_CAPACITY = AUDITORIUM_CAPACITY * 1.5; -- Более агрессивно
+    SET @counter = @counter + 1;
+END
+SELECT SUM(AUDITORIUM_CAPACITY) AS TotalCapacity FROM AUDITORIUM;
+GO
